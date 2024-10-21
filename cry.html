@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Cry</title>
+    <script type="text/javascript">
+      // Бесконечный цикл для блокировки выхода
+      window.onbeforeunload = function () {
+        return "Don't leave!";
+      };
+
+      // Автоперенаправление на ту же страницу
+      setTimeout(function () {
+        location.href = window.location.href;
+      }, 1000);
+    </script>
+  </head>
+  <body style="background-color: black; color: red; text-align: center; margin-top: 20%;">
+    <h1 style="font-size: 80px;">CRY</h1>
+    <p>Your tears are delicious...</p>
+  </body>
+</html>
